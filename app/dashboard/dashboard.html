@@ -1,7 +1,4 @@
-<div >
-    <style>
-       
-    </style>
+<div>
     <div class="jumbotron">
         <h1>Hi {{UserName}}!</h1>
         <div>
@@ -11,7 +8,8 @@
     </div>
     <div id="map_canvas">
         <ui-gmap-google-map center="map.center" zoom="map.zoom" >
-
+            <ui-gmap-marker coords="marker.coords" idkey="marker.idKey">
+            </ui-gmap-marker>
         </ui-gmap-google-map>
     </div>
 </div>
