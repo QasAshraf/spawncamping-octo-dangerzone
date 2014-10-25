@@ -16,11 +16,32 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
         });
     }])
 
-    .controller('DashboardCtrl', ['$scope','GoogleMapApi'.ns() ,function ($scope, GoogleMapApi) {
+    .controller('DashboardCtrl', ['$scope', 'GoogleMapApi'.ns(), function ($scope, GoogleMapApi) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                $scope.$apply(function () {
+                    $scope.map = {
+                        center: {
+                            latitude: (position != 'undefined') ? position.coords.latitude : 53.4667,
+                            longitude: (position != 'undefined') ? position.coords.longitude : 2.2333
+                        },
+                        zoom: 8,
+                        bounds: {}
+                    };
+                });
+            });
+        }
         $scope.UserName = "ben3005";
-        $scope.map = { center: { latitude: 40.1451, longitude: -99.6680 }, zoom: 4, bounds: {} };
+        $scope.map = {
+            center: {
+                latitude: 53.4667,
+                longitude: 2.2333
+            },
+            zoom: 8,
+            bounds: {}
+        };
 
         GoogleMapApi.then(function (maps) {
-            alert("the map is loaded");
+            console.log($scope.map)
         });
     }]);
