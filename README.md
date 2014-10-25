@@ -1,3 +1,4 @@
+[ ![Codeship Status for QasAshraf/spawncamping-octo-dangerzone](https://www.codeship.io/projects/04d63dd0-3e83-0132-d4eb-1e3ecb528e7b/status)](https://www.codeship.io/projects/43501)
 # angular-seed — the seed for AngularJS apps
 
 This project is an application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
@@ -87,7 +88,7 @@ app/                    --> all of the source files for the application
     view1_test.js         --> tests of the controller
   view2/                --> the view2 view template and logic
     view2.html            --> the partial template
-    view2.js              --> the controller logic
+    account.js              --> the controller logic
     view2_test.js         --> tests of the controller
   app.js                --> main application module
   index.html            --> app layout file (the main html template file of the app)

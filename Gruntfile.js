@@ -59,7 +59,10 @@ module.exports = function(grunt) {
                     'angular-route.js': 'angular-route/angular-route.js',
                     'lodash.js': 'lodash/dist/lodash.js',
                     'bluebird.js':'bluebird/js/browser/bluebird.js',
-                    'angular-google-maps.js': 'angular-google-maps/dist/angular-google-maps.js'
+                    'angular-google-maps.js': 'angular-google-maps/dist/angular-google-maps.js',
+                    'ng-tags-input.js': 'ng-tags-input/ng-tags-input.min.js',
+                    'ng-tags-input.bootstrap.css': 'ng-tags-input/ng-tags-input.bootstrap.css',
+                    'ng-tags-input.css': 'ng-tags-input/ng-tags-input.css'
                 }
             },
 
@@ -69,6 +72,18 @@ module.exports = function(grunt) {
                     fonts: 'bootstrap/dist/fonts'
                 }
             }
+        },
+        shipit: {
+            options: {
+                workspace: '.',
+                deployTo: '/var/www/html/tagchat',
+                repositoryUrl: 'https://github.com/QasAshraf/spawncamping-octo-dangerzone.git',
+                ignores: ['.git', 'node_modules', 'bower_components'],
+                keepReleases: 2
+            },
+            prod: {
+                servers: 'root@bongo.qasashraf.com'
+            }
         }
     });
 
@@ -76,6 +91,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks("grunt-bower-install-simple");
     grunt.loadNpmTasks('grunt-bowercopy');
+    grunt.loadNpmTasks('grunt-shipit');
 
 
     grunt.registerTask('default', ['watch']);
