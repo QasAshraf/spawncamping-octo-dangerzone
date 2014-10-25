@@ -1,3 +1,4 @@
+[ ![Codeship Status for QasAshraf/spawncamping-octo-dangerzone](https://www.codeship.io/projects/04d63dd0-3e83-0132-d4eb-1e3ecb528e7b/status)](https://www.codeship.io/projects/43501)
 # angular-seed — the seed for AngularJS apps
 
 This project is an application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
