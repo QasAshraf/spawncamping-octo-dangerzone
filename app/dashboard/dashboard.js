@@ -16,7 +16,38 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
         });
     }])
 
-    .controller('DashboardCtrl', ['$scope', 'GoogleMapApi'.ns(), function ($scope, GoogleMapApi) {
+    .controller('DashboardCtrl', ['$scope', 'GoogleMapApi'.ns(), 'groupFactory', function ($scope, GoogleMapApi, groupFacotry) {
+        getGroups();
+        function getGroups() {
+            groupFacotry.getGroups()
+                .success(function (grps) {
+                    $scope.circles = [];
+                    for (var i = 0; i < grps.locations.length; i++) {
+                        $scope.circles.push({
+                            id: grps.locations[i].id,
+                            centre: {
+                                latitude: grps.locations[i].lat,
+                                longitude: grps.locations[i].lon
+                            },
+                            radius: 500,
+                            stroke: {
+                                color: '#08B21F',
+                                weight: 2,
+                                opacity: 1
+                            },
+                            fill: {
+                                color: '#08B21F',
+                                weight: 2,
+                                opacity: 0.5
+                            }
+                        });
+                    }
+                })
+                .error(function (err) {
+                    console.log(err);
+                });
+        }
+        
         var map = {
             zoom: 14,
             bounds: {}
@@ -25,6 +56,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
         var marker = {
             idKey: 1,
             coords: {
+                /*Default placement is manchester*/
                 latitude: 53.476621,
                 longitude: -2.253648
             }
@@ -32,7 +64,6 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 $scope.$apply(function () {
-                    console.log(position);
                     $scope.map.center = {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
@@ -47,55 +78,15 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
         $scope.UserName = "ben3005";
         $scope.marker = marker;
 
-        $scope.circles = [];
-
-        $scope.circles.push({
-            id: 1,
-            centre: {
-                latitude: 53.486004,
-                longitude: -2.250322
-            },
-            radius: 500,
-            stroke: {
-                color: '#08B21F',
-                weight: 2,
-                opacity: 1
-            },
-            fill: {
-                color: '#08B21F',
-                weight: 2,
-                opacity: 0.5
-            }
-        });
-
-        $scope.circles.push({
-            id: 2,
-            centre: {
-                latitude: 53.502939,
-                longitude: -2.200099
-            },
-            radius: 500,
-            stroke: {
-                color: '#08B21F',
-                weight: 2,
-                opacity: 1.0
-            },
-            fill: {
-                color: '#08B21F',
-                weight: 2,
-                opacity: 0.5
-            }
-        });
-
         //set a default centre so that if the location is denied it will use defaults
         map.center = {
+            /*Default placement is manchester*/
             latitude: 53.4667,
             longitude: -2.2333
         };
 
         $scope.map = map;
         GoogleMapApi.then(function (maps) {
-            console.log($scope.marker)
-            console.log($scope.map.center)
+            console.log($scope.circles)
         });
     }]);
