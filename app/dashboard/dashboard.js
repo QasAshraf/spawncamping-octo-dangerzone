@@ -18,6 +18,8 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
 
     .controller('DashboardCtrl', ['$scope', 'GoogleMapApi'.ns(), 'groupFactory', function ($scope, GoogleMapApi, groupFacotry) {
         getGroups();
+        $scope.CloseUsers = 0;
+        $scope.nearRadius = 50;
         function getGroups() {
             groupFacotry.getGroups()
                 .success(function (grps) {
@@ -39,7 +41,8 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                                 color: '#08B21F',
                                 weight: 2,
                                 opacity: 0.5
-                            }
+                            },
+                            count: parseInt(grps.locations[i].count)
                         });
                     }
                 })
@@ -47,10 +50,56 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                     console.log(err);
                 });
         }
+
+        $scope.$watch('circles', function () {
+            if (typeof $scope.circles != 'undefined') {
+                for (var i = 0; i < $scope.circles.length; i++) {
+                    if ($scope.getDistanceBetweenKM($scope.circles[i].centre.latitude, $scope.circles[i].centre.longitude, $scope.marker.coords.latitude, $scope.marker.coords.longitude) < $scope.nearRadius) {
+                        $scope.CloseUsers += parseInt($scope.circles[i].count);
+                    }
+                }
+            }
+        })
+
+        $scope.$watch('nearRadius', function () {
+            console.log($scope.nearRadius);
+            $scope.CloseUsers = 0;
+            if (typeof $scope.circles != 'undefined') {
+                for (var i = 0; i < $scope.circles.length; i++) {
+                    if ($scope.getDistanceBetweenKM($scope.circles[i].centre.latitude, $scope.circles[i].centre.longitude, $scope.marker.coords.latitude, $scope.marker.coords.longitude) < $scope.nearRadius) {
+                        $scope.CloseUsers += parseInt($scope.circles[i].count);
+                    }
+                }
+            }
+        })
+
+        $scope.toRadians = function (val) {
+            return val * Math.PI / 180;
+        };
+
+        $scope.getDistanceBetweenKM = function getDistanceBetweenKM(lat1, lon1, lat2, lon2) {
+            var R = 6371; // km
+            var phi1 = $scope.toRadians(lat1);
+            var phi2 = $scope.toRadians(lat2);
+            var deltaPhi = $scope.toRadians(lat2 - lat1);
+            var deltaLambda = $scope.toRadians(lon2 - lon1);
+            var a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+                    Math.cos(phi1) * Math.cos(phi2) *
+                    Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function mapResize(maps,eventName,args) {
+            
+        };
         
         var map = {
-            zoom: 14,
-            bounds: {}
+            zoom: 12,
+            bounds: {},
+            events: {
+                zoom_changed:mapResize
+            }
         };
 
         var marker = {
@@ -87,6 +136,6 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
 
         $scope.map = map;
         GoogleMapApi.then(function (maps) {
-            console.log($scope.circles)
+            
         });
     }]);
