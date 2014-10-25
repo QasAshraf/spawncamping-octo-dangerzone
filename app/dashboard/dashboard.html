@@ -1,1 +1,16 @@
-<p>This is the partial for view 1.</p>
+<div ng-controller="DashboardCtrl">
+    <style>
+       
+    </style>
+    <div class="jumbotron">
+        <h1>Hi {{UserName}}!</h1>
+        <div>
+            <small>There are {{NumUsers}} near you</small>
+        </div>
+    </div>
+    <div id="map_canvas">
+        <ui-gmap-google-map center="map.center" zoom="map.zoom" >
+
+        </ui-gmap-google-map>
+    </div>
+</div>
