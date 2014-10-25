@@ -1,3 +1,4 @@
+@import "variables";
 /* app css stylesheet */
 
 .menu {
@@ -73,7 +74,7 @@ body {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: 50px;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -81,7 +82,7 @@ body {
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
+    background-color: @base;
     border-right: 1px solid #eee;
   }
 }
@@ -120,23 +121,14 @@ body {
 .main .page-header {
   margin-top: 0;
 }
-
-
-/*
- * Placeholder dashboard ideas
- */
-
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
+.navbar-inverse {
+  background-color: @second-base;
+  color: white;
 }
-.placeholders h4 {
-  margin-bottom: 0;
+
+.navbar-inverse .navbar-brand {
+  color: white;
 }
-.placeholder {
-  margin-bottom: 20px;
-}
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
+.navbar-inverse .navbar-nav>li>a {
+  color:white;
 }
