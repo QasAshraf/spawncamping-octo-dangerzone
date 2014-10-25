@@ -18,7 +18,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
 
     .controller('DashboardCtrl', ['$scope', 'GoogleMapApi'.ns(), function ($scope, GoogleMapApi) {
         var map = {
-            zoom: 8,
+            zoom: 14,
             bounds: {}
         };
 
@@ -32,6 +32,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 $scope.$apply(function () {
+                    console.log(position);
                     $scope.map.center = {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
