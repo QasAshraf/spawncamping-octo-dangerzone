@@ -11,9 +11,9 @@ angular.module('myApp.account', ['ngRoute', 'ngTagsInput'])
 
     .controller('AccountCtrl', function($scope, UserService)
     {
-        $scope.user = UserService;
+        $scope.user = UserService.get();
         $scope.update = function(user) {
-            UserService = angular.copy(user);
+            UserService.save(angular.copy(user));
         };
 
         $scope.loadTags = function (query) {
