@@ -9,8 +9,11 @@ angular.module('myApp.room', ['ngRoute'])
         });
     }])
 
-    .controller('RoomCtrl', function($scope, $routeParams, RoomService) {
+    .controller('RoomCtrl', function($scope, $routeParams, RoomService, $location) {
         console.log($routeParams);
         $scope.room = RoomService.get($routeParams['bookId']);
+        if (typeof($scope.room) === 'undefined') {
+            $location.path('/dashboard');
+        }
         console.log($scope.room);
     });
