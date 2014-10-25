@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.account', ['ngRoute'])
+angular.module('myApp.account', ['ngRoute', 'ngTagsInput'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/account', {
@@ -9,6 +9,9 @@ angular.module('myApp.account', ['ngRoute'])
         });
     }])
 
-    .controller('AccountCtrl', [function () {
-
-    }]);
+    .controller('AccountCtrl', function($scope, $http)
+    {
+        $scope.loadTags = function (query) {
+            //@todo
+        };
+    });

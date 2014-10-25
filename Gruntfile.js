@@ -56,7 +56,10 @@ module.exports = function(grunt) {
                     'bootstrap.min.css': 'bootstrap/dist/css/bootstrap.min.css',
                     'bootstrap.min.js': 'bootstrap/dist/js/bootstrap.min.js',
                     'angular.js': 'angular/angular.js',
-                    'angular-route.js': 'angular-route/angular-route.js'
+                    'angular-route.js': 'angular-route/angular-route.js',
+                    'ng-tags-input.js': 'ng-tags-input/ng-tags-input.min.js',
+                    'ng-tags-input.bootstrap.css': 'ng-tags-input/ng-tags-input.bootstrap.css',
+                    'ng-tags-input.css': 'ng-tags-input/ng-tags-input.css'
                 }
             },
 
