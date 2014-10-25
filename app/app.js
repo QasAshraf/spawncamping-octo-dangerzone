@@ -9,7 +9,4 @@ var app = angular.module('myApp', [
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/dashboard'});
-    }])
-    .controller('AppCtrl', ['$scope' ,function ($scope) {
-        $scope.user = {"name": "test"};
     }]);
