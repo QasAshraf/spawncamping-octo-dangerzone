@@ -10,6 +10,11 @@
         <ui-gmap-google-map center="map.center" zoom="map.zoom" >
             <ui-gmap-marker coords="marker.coords" idkey="marker.idKey">
             </ui-gmap-marker>
+            <ui-gmap-circle ng-repeat="circle in circles track by circle.id" center="circle.centre"
+                            radius="circle.radius"
+                            fill="circle.fill"
+                            stroke="circle.stroke">
+            </ui-gmap-circle>
         </ui-gmap-google-map>
     </div>
 </div>
