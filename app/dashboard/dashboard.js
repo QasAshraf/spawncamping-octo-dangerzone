@@ -21,6 +21,14 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
             zoom: 8,
             bounds: {}
         };
+
+        var marker = {
+            idKey: 1,
+            coords: {
+                latitude: 53.476621,
+                longitude: -2.253648
+            }
+        };
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 $scope.$apply(function () {
@@ -28,17 +36,15 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     };
+                    $scope.marker.coords = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
                 });
             });
         }
         $scope.UserName = "ben3005";
-        $scope.marker = {
-            idKey: 1,
-            coords: {
-                latitude: 53.476621,
-                longitude: -2.253648
-            }
-        }
+        $scope.marker = marker;
 
         $scope.circles = [];
 
@@ -88,6 +94,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
 
         $scope.map = map;
         GoogleMapApi.then(function (maps) {
-            console.log($scope.circles)
+            console.log($scope.marker)
+            console.log($scope.map.center)
         });
     }]);
