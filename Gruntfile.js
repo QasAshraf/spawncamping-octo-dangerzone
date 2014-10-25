@@ -53,7 +53,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'jquery.min.js': 'jquery/dist/jquery.min.js',
-                    'bootstrap.min.js': 'bootstrap/dist/js/bootstrap.min.js',
+                    'bootstrap.min.css': 'bootstrap/dist/css/bootstrap.min.css',
+                    'bootstrap.min.js': 'bootstrap/dist/js/bootstrap.min.js'
                 }
             },
 
