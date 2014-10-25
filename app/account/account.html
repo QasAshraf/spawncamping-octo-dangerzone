@@ -1,16 +1,17 @@
 <form novalidate class="simple-form">
     <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name"  ng-model="user.name" placeholder="Enter name">
+        <label for="firstname">First Name</label>
+        <input type="text" class="form-control" id="firstname"  ng-model="user.FirstName" placeholder="Enter first name(s)">
     </div>
     <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email"  ng-model="user.email" placeholder="Enter email">
+        <label for="lastname">Last Name</label>
+        <input type="text" class="form-control" id="lastname"  ng-model="user.LastName" placeholder="Enter last name">
     </div>
     <div class="form-group">
-        <label>Tags</label>
-        <tags-input ng-model="user.tags">
+        <label>Interests</label>
+        <tags-input ng-model="user.Interests">
             <auto-complete source="loadTags($query)"></auto-complete>
         </tags-input>
     </div>
+    <button class="btn btn-success" ng-click="update(user)">Save</button>
 </form>
