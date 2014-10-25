@@ -10,4 +10,13 @@ var app = angular.module('myApp', [
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/dashboard'});
+    }])
+
+    .factory('groupFactory', ['$http', function ($http) {
+        var url = "/tagchat-api/current/examples/location.json"
+        var dataFactory = {};
+        dataFactory.getGroups = function () {
+            return $http.get(url);
+        };
+        return dataFactory;
     }]);
