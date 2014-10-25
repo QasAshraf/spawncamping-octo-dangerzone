@@ -47,7 +47,7 @@ app.service('RoomService', function() {
 
 app.service('ConfigService', function() {
     this.config = {
-        "api-url": "http://bongo.qasashraf.com/tagchat-api/current"
+        "api-url": "http://bongo.qasashraf.com/api/"
     };
     this.add = function(key, value) {
         this.config[key] = value;
