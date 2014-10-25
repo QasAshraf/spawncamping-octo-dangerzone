@@ -17,6 +17,6 @@ angular.module('myApp.account', ['ngRoute', 'ngTagsInput'])
         };
 
         $scope.loadTags = function (query) {
-            return $http.get(ConfigService.get('api-url')+'/examples/tag.filter.json');
+            return $http.get(ConfigService.get('api-url')+'/api/tag/'+query);
         };
     });
