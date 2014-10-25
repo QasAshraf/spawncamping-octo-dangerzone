@@ -5,7 +5,6 @@ var app = angular.module('myApp', [
     'ngRoute',
     'myApp.dashboard',
     'myApp.account',
-    'myApp.version',
     'myApp.room'
 ]).
     config(['$routeProvider', function ($routeProvider) {
