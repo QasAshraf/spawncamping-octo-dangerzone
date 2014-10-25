@@ -44,3 +44,15 @@ app.service('RoomService', function() {
       return this.rooms[id];
     };
 });
+
+app.service('ConfigService', function() {
+    this.config = {
+        "api-url": "http://bongo.qasashraf.com/tagchat-api/current"
+    };
+    this.add = function(key, value) {
+        this.config[key] = value;
+    };
+    this.get = function(key) {
+        return this.config[key];
+    }
+})
