@@ -35,6 +35,8 @@ app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     function logout() {
         var deferred = $q.defer();
 
+        userInfo = null;
+        $window.sessionStorage["userInfo"] = null;
 
         return deferred.promise;
     }
@@ -56,6 +58,7 @@ app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
 
     function init() {
         if ($window.sessionStorage["userInfo"]) {
+            console.log($window.sessionStorage["userInfo"]);
             userInfo = JSON.parse($window.sessionStorage["userInfo"]);
         }
     }

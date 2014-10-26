@@ -24,6 +24,11 @@ app.run(["$rootScope", "$location", function ($rootScope, $location) {
         }
     });
 }])
-.controller('mainController', ['AuthService', function (AuthService) {
+.controller('mainController', ['AuthService', "$location", function (AuthService, $location) {
     $scope.loggedin = AuthService.isLoggedIn();
+    $scope.logout = function () {
+        AuthService.logout();
+        $location.path("/");
+    }
+        
 }]);

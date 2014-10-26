@@ -34,6 +34,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="loggedin"><a href="#/login">Login</a></li>
                 <li ng-hide="loggedin"><a href="#/register">Register</a></li>
+                <li ng-show="loggedin"><a href="#" ng-click="logout()">logof</a></li>
                 <li><a href="#/dashboard">Dashboard</a></li>
                 <li><a href="#/account">Account</a></li>
             </ul>
