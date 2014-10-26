@@ -13,10 +13,12 @@ var app = angular.module('myApp', [
         $routeProvider.otherwise({redirectTo: '/dashboard'});
     }]);
 
-app.run(["$rootScope", "$location", function ($rootScope, $location) {
+app.run(["$rootScope", "$location", "AuthService" ,function ($rootScope, $location, AuthService) {
 
     $rootScope.$on("$routeChangeSuccess", function (userInfo) {
     });
+
+    AuthService.init();
 
     $rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
         if (eventObj.authenticated === false) {

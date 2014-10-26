@@ -33,6 +33,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
         function getGroups() {
             groupFacotry.getGroups()
                 .success(function (grps) {
+                    console.log(grps);
                     for (var i = 0; i < grps.locations.length; i++) {
                         $scope.circles.push({
                             id: grps.locations[i].id,

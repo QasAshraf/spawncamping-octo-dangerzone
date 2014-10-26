@@ -58,7 +58,7 @@ app.service('ConfigService', function () {
 });
 
 app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $window) {
-    var userInfo = null;
+    this.userInfo = null;
 
     this.login = function login(username, password) {
         var deferred = $q.defer();
@@ -70,7 +70,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-              userInfo = data;
+              this.userInfo = data;
               $window.sessionStorage["userInfo"] = data;
           }).
           error(function (data, status, headers, config) {
@@ -83,7 +83,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     this.logout = function logout() {
         var deferred = $q.defer();
 
-        userInfo = null;
+        this.userInfo = null;
         $window.sessionStorage["userInfo"] = null;
 
         return deferred.promise;
@@ -91,8 +91,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
 
 
     this.isLoggedIn = function isLoggedIn() {
-        console.log(userInfo != null);
-        if (userInfo !== null) {
+        if (this.userInfo != null) {
             return true;
         }
         else {
@@ -100,7 +99,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
         }
     }
 
-    this. getUserInfo = function getUserInfo() {
+    this.getUserInfo = function getUserInfo() {
         return userInfo;
     }
 
@@ -109,5 +108,4 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
             userInfo = $window.sessionStorage["userInfo"];
         }
     }
-
 }]);
