@@ -1,0 +1,47 @@
+app.factory('groupFactory', ['$http', function ($http) {
+    var url = "/tagchat-api/current/examples/location.json"
+    var dataFactory = {};
+    dataFactory.getGroups = function () {
+        return $http.get(url);
+    };
+    return dataFactory;
+}]);
+
+
+app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $window) {
+    var url = "/tagchat-api/current/examples/location.json";
+    var userInfo;
+
+    function login(username, password) {
+        var deferred = $q.defer();
+
+
+        return deferred.promise;
+    };
+
+    function logout() {
+        var deferred = $q.defer();
+
+
+        return deferred.promise;
+    }
+
+
+    function getUserInfo() {
+        return userInfo;
+    }
+
+    function init() {
+        if ($window.sessionStorage["userInfo"]) {
+            userInfo = JSON.parse($window.sessionStorage["userInfo"]);
+        }
+    }
+    init();
+
+    return {
+        login: login,
+        logout: logout,
+        getUserInfo: getUserInfo
+    };
+    
+}]);
