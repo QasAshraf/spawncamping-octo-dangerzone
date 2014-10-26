@@ -1,20 +1,24 @@
 app.service('UserService', ['$http', function($http) {
     this.currentUser = {
-            firstname: 'anonymous',
+            firstname: '',
             lastname: '',
             email: '',
-            Interests: []
+            tags: [],
+            token: null
     };
     this.isLive = false;
     this.get = function() {
         var self = this;
         if (!this.isLive) {
-            $http.get('/api/user/'+this.currentUser.email, {}).
+            console.log(this.currentUser.token.api_key);
+            $http.get('/api/user/'+self.currentUser.token.api_key, {}).
                 success(function (data) {
-                    self.currentUser = data;
+                    self.currentUser = data.user;
+                    self.isLive = true;
                 }).
                 error(function (data, status, headers, config) {
                     console.log("error");
+                    self.isLive = false;
                 });
         }
         return this.currentUser;
@@ -30,6 +34,7 @@ app.service('UserService', ['$http', function($http) {
         }).
         error(function (data, status, headers, config) {
             console.log("error");
+            self.isLive = false
         });
 
 
@@ -93,9 +98,8 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-              var user = UserService.get();
-              user.email = username;
-              UserService.save(user);
+              UserService.currentUser.email = username;
+              UserService.currentUser.token = data;
               self.userInfo = data;
               $window.sessionStorage["userInfo"] = data;
           }).
@@ -107,9 +111,8 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
     };
 
     this.register = function register(data, username) {
-        var user = UserService.get();
-        user.email = username;
-        UserService.save(user);
+        UserService.currentUser.email = username;
+        UserService.currentUser.token = data;
         self.userInfo = data;
         $window.sessionStorage["userInfo"] = data;
     };
