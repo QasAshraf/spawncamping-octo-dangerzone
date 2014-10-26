@@ -41,7 +41,11 @@ app.run(["$rootScope", "$location", "AuthService", function ($rootScope, $locati
 
         $http.get('/api/messages/' + AuthService.getUserInfo(), {}).
             success(function (data) {
-                $scope.messages = data.slice().reverse();
+                if (data) {
+                    $scope.messages = data.slice().reverse();
+                } else {
+                    $scope.messages = [];
+                }
             }).
             error(function (data, status, headers, config) {
                 console.log("error");
