@@ -9,7 +9,6 @@ app.factory('groupFactory', ['$http', function ($http) {
 
 
 app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $window) {
-    var url = "/tagchat-api/current/examples/location.json";
     var userInfo;
 
     function login(username, password) {
@@ -44,6 +43,7 @@ app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
 
     function isLoggedIn()
     {
+        console.log(userInfo);
         if (userInfo != null) {
             return true;
         }
