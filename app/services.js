@@ -1,18 +1,40 @@
-app.service('UserService', function() {
+app.service('UserService', ['$http', function($http) {
     this.currentUser = {
-            FirstName: 'anonymous',
-            LastName: '',
+            firstname: 'anonymous',
+            lastname: '',
+            email: '',
             Interests: []
     };
+    this.isLive = false;
     this.get = function() {
+        var self = this;
+        if (!this.isLive) {
+            $http.get('/api/user/'+this.currentUser.email, {}).
+                success(function (data) {
+                    self.currentUser = data;
+                }).
+                error(function (data, status, headers, config) {
+                    console.log("error");
+                });
+        }
         return this.currentUser;
     };
 
-
     this.save = function(user) {
-        this.currentUser = user;
+        var self = this;
+        $http.put('/api/user',
+            user
+        ).
+        success(function (data, status, headers, config) {
+            self.currentUser = user;
+        }).
+        error(function (data, status, headers, config) {
+            console.log("error");
+        });
+
+
     }
-});
+}]);
 
 app.service('RoomService', function() {
     this.rooms = {
@@ -57,7 +79,7 @@ app.service('ConfigService', function () {
     }
 });
 
-app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $window) {
+app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($http, $q, $window, UserService) {
     this.userInfo = null;
 
     this.login = function login(username, password) {
@@ -71,6 +93,9 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
             latitude: 1
         }).
           success(function (data, status, headers, config) {
+              var user = UserService.get();
+              user.email = username;
+              UserService.save(user);
               self.userInfo = data;
               $window.sessionStorage["userInfo"] = data;
           }).
@@ -81,7 +106,10 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
         return deferred.promise;
     };
 
-    this.register = function register(data) {
+    this.register = function register(data, username) {
+        var user = UserService.get();
+        user.email = username;
+        UserService.save(user);
         self.userInfo = data;
         $window.sessionStorage["userInfo"] = data;
     };

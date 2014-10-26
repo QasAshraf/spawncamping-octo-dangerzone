@@ -31,7 +31,7 @@ angular.module('myApp.register', ['ngRoute'])
             lastname: $scope.LName
         }).
           success(function (data, status, headers, config) {
-              AuthService.register(data);
+              AuthService.register(data, $scope.userName);
               $location.path('/');
           }).
           error(function (data, status, headers, config) {
