@@ -1,6 +1,6 @@
 app.service('UserService', ['$http', function($http) {
     this.currentUser = {
-            firstname: 'anonymous',
+            firstname: '',
             lastname: '',
             email: '',
             Interests: []
@@ -9,6 +9,7 @@ app.service('UserService', ['$http', function($http) {
     this.get = function() {
         var self = this;
         if (!this.isLive) {
+            console.log(this.currentUser.email);
             $http.get('/api/user/'+this.currentUser.email, {}).
                 success(function (data) {
                     self.currentUser = data;
@@ -93,7 +94,6 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-              var user = UserService.get();
               user.email = username;
               UserService.save(user);
               self.userInfo = data;
@@ -107,8 +107,12 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
     };
 
     this.register = function register(data, username) {
-        var user = UserService.get();
-        user.email = username;
+        var user = {
+            email: username,
+            firstname: '',
+            lastname: '',
+            Interests: []
+        };
         UserService.save(user);
         self.userInfo = data;
         $window.sessionStorage["userInfo"] = data;
