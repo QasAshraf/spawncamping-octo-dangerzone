@@ -61,6 +61,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     this.userInfo = null;
 
     this.login = function login(username, password) {
+        var self = this;
         var deferred = $q.defer();
 
         $http.post('/api/user/logon', {
@@ -70,7 +71,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-              this.userInfo = data;
+              self.userInfo = data;
               $window.sessionStorage["userInfo"] = data;
           }).
           error(function (data, status, headers, config) {
@@ -87,25 +88,20 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
         $window.sessionStorage["userInfo"] = null;
 
         return deferred.promise;
-    }
+    };
 
 
     this.isLoggedIn = function isLoggedIn() {
-        if (this.userInfo != null) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
+        return this.userInfo != null;
+    };
 
     this.getUserInfo = function getUserInfo() {
         return userInfo;
-    }
+    };
 
     this.init = function init() {
         if ($window.sessionStorage["userInfo"]) {
-            userInfo = $window.sessionStorage["userInfo"];
+            this.userInfo = $window.sessionStorage["userInfo"];
         }
     }
 }]);
