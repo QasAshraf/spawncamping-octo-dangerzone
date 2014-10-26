@@ -4,16 +4,12 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
         lastname: '',
         email: '',
         tags: [],
-        token: null
+        api_key: null
     };
-    console.log(AuthService.getUserInfo());
-    if ($window.sessionStorage["userInfo"] != null) {
-        this.currentUser = $window.sessionStorage["userInfo"];
-    }
+    this.currentUser = AuthService.getUserInfo()
     this.get = function () {
         var self = this;
-        console.log(this.currentUser);
-        $http.get('/api/user/' + self.currentUser.token.api_key, {}).
+        $http.get('/api/user/' + self.currentUser.api_key, {}).
             success(function (data) {
                 self.currentUser = data.user;
                 self.isLive = true;
