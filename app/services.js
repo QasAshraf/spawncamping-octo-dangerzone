@@ -1,16 +1,17 @@
-app.service('UserService', ['$http', 'AuthService', function($http, AuthService) {
+app.service('UserService', ['$http', function($http) {
     this.currentUser = {
             firstname: '',
             lastname: '',
             email: '',
-            Interests: []
+            Interests: [],
+            token: null
     };
     this.isLive = false;
     this.get = function() {
         var self = this;
         if (!this.isLive) {
-            console.log(AuthService.userInfo);
-            $http.get('/api/user/'+AuthService.userInfo, {}).
+            console.log(this.currentUser.token);
+            $http.get('/api/user/'+self.currentUser.token, {}).
                 success(function (data) {
                     self.currentUser = data;
                     self.isLive = true;
@@ -97,7 +98,8 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-                UserService.currentUser.email = username;
+              UserService.currentUser.email = username;
+              UserService.currentUser.token = data;
               self.userInfo = data;
               $window.sessionStorage["userInfo"] = data;
           }).
@@ -110,6 +112,7 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
 
     this.register = function register(data, username) {
         UserService.currentUser.email = username;
+        UserService.currentUser.token = data;
         self.userInfo = data;
         $window.sessionStorage["userInfo"] = data;
     };
