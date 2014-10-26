@@ -16,9 +16,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="components/ng-tags-input.css">
     <link rel="stylesheet" href="components/ng-tags-input.bootstrap.css">
+    <link rel="stylesheet" href="components/angular-snap.css">
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
+<div snap-drawer="right">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+
+        </div>
+    </div>
+    <p>The chat room</p>
+</div>
+<div snap-content>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -37,12 +47,12 @@
                 <li ng-show="loggedin"><a href="#" ng-click="logout()">Log off</a></li>
                 <li ng-show="loggedin"><a href="#/dashboard">Dashboard</a></li>
                 <li ng-show="loggedin"><a href="#/account">Account</a></li>
+                <li ng-show="loggedin"><a snap-toggle="right">Chat</a></li>
             </ul>
         </div>
     </div>
 </div>
-
-<div class="container">
+<div class="container main">
     <div class="row">
 
         <div class="col-sm-12 col-md-12 main">
@@ -55,6 +65,8 @@
         </div>
     </div>
 </div>
+</div>
+<snap-dragger></snap-dragger>
 <script src="components/angular.js"></script>
 <script src="components/angular-route.js"></script>
 <script src='components/lodash.js'></script>
@@ -62,6 +74,8 @@
 <script src='components/angular-google-maps.js'></script>
 <script src="components/jquery.min.js"></script>
 <script src="components/bootstrap.min.js"></script>
+<script src="components/snap.min.js"></script>
+<script src="components/angular-snap.min.js"></script>
 <script src="app.js"></script>
 <script src="services.js"></script>
 <script src="factories.js"></script>

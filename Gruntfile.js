@@ -62,7 +62,10 @@ module.exports = function(grunt) {
                     'angular-google-maps.js': 'angular-google-maps/dist/angular-google-maps.js',
                     'ng-tags-input.js': 'ng-tags-input/ng-tags-input.min.js',
                     'ng-tags-input.bootstrap.css': 'ng-tags-input/ng-tags-input.bootstrap.css',
-                    'ng-tags-input.css': 'ng-tags-input/ng-tags-input.css'
+                    'ng-tags-input.css': 'ng-tags-input/ng-tags-input.css',
+                    'snap.min.js': 'snapjs/snap.min.js',
+                    'angular-snap.min.js': 'angular-snap/angular-snap.min.js',
+                    'angular-snap.css': 'angular-snap/angular-snap.css'
                 }
             },
 

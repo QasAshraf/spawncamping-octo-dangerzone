@@ -7,7 +7,8 @@ var app = angular.module('myApp', [
     'myApp.account',
     'myApp.room',
     'myApp.login',
-    'myApp.register'
+    'myApp.register',
+    'snap'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/dashboard'});
