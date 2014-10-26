@@ -1,4 +1,4 @@
-app.service('UserService', ['$http', function($http) {
+app.service('UserService', ['$http', '$window', function($http, $window) {
     this.currentUser = {
             firstname: '',
             lastname: '',
