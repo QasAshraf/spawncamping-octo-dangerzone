@@ -3,7 +3,7 @@ app.service('UserService', ['$http', function($http) {
             firstname: '',
             lastname: '',
             email: '',
-            Interests: [],
+            tags: [],
             token: null
     };
     this.isLive = false;
