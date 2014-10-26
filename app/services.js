@@ -1,4 +1,4 @@
-app.service('UserService', ['$hhtp', function($http) {
+app.service('UserService', ['$http', function($http) {
     this.currentUser = {
             firstname: 'anonymous',
             lastname: '',
