@@ -11,7 +11,7 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
         var self = this;
         $http.get('/api/user/' + self.currentUser.api_key, {}).
             success(function (data) {
-                console.log(self.currentUser);
+                console.log(self);
                 self.currentUser = data.user;
             }).
             error(function (data, status, headers, config) {
@@ -93,12 +93,11 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-              console.log(data);
               self.userInfo = data;
               $window.sessionStorage["userInfo"] = data;
           }).
           error(function (data, status, headers, config) {
-              this.userInfo = null;
+              self.userInfo = null;
               $window.sessionStorage["userInfo"] = null;
           });
 
