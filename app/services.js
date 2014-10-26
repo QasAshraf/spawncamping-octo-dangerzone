@@ -45,14 +45,14 @@ app.service('RoomService', function() {
     };
 });
 
-app.service('ConfigService', function() {
+app.service('ConfigService', function () {
     this.config = {
         "api-url": "http://bongo.qasashraf.com/api/"
     };
-    this.add = function(key, value) {
+    this.add = function (key, value) {
         this.config[key] = value;
     };
-    this.get = function(key) {
+    this.get = function (key) {
         return this.config[key];
     }
-})
+});

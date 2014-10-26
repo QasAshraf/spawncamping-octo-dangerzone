@@ -5,7 +5,17 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
     .config(['$routeProvider', 'GoogleMapApiProvider'.ns(), function ($routeProvider, GoogleMapApi) {
         $routeProvider.when('/dashboard', {
             templateUrl: 'dashboard/dashboard.html',
-            controller: 'DashboardCtrl'
+            controller: 'DashboardCtrl',
+            resolve: {
+                auth: function ($q, AuthService) {
+                    var userInfo = AuthService.getUserInfo();
+                    if (userInfo) {
+                        return $q.when(userInfo);
+                    } else {
+                        return $q.reject({ authenticated: false });
+                    }
+                }
+            }
         });
 
         GoogleMapApi.configure({
@@ -44,7 +54,6 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                             count: parseInt(grps.locations[i].count)
                         });
                     }
-                    $scope.nearRadius = 50;
                 })
                 .error(function (err) {
                     console.log(err);
@@ -177,6 +186,6 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
 
         $scope.map = map;
         GoogleMapApi.then(function (maps) {
-            
+            $scope.nearRadius = 50;
         });
     }]);

@@ -5,17 +5,21 @@ var app = angular.module('myApp', [
     'ngRoute',
     'myApp.dashboard',
     'myApp.account',
-    'myApp.room'
+    'myApp.room',
+    'myApp.login'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/dashboard'});
-    }])
-
-    .factory('groupFactory', ['$http', function ($http) {
-        var url = "/tagchat-api/current/examples/location.json"
-        var dataFactory = {};
-        dataFactory.getGroups = function () {
-            return $http.get(url);
-        };
-        return dataFactory;
     }]);
+
+app.run(["$rootScope", "$location", function ($rootScope, $location) {
+
+    $rootScope.$on("$routeChangeSuccess", function (userInfo) {
+    });
+
+    $rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
+        if (eventObj.authenticated === false) {
+            $location.path("/login");
+        }
+    });
+}]);
