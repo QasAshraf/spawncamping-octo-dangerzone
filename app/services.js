@@ -17,6 +17,7 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
             error(function (data, status, headers, config) {
                 console.log("error");
             });
+        console.log(self);
         return self.currentUser;
     };
 
