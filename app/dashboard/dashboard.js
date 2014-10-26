@@ -52,7 +52,8 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                                 weight: 2,
                                 opacity: 0.5
                             },
-                            count: parseInt(grps[i].count)
+                            count: parseInt(grps[i].count),
+                            tags: grps[i].tags
                         });
                     }
                 })
