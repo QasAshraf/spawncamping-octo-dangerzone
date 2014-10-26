@@ -103,7 +103,8 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
               $window.sessionStorage["userInfo"] = data;
           }).
           error(function (data, status, headers, config) {
-              console.log("error");
+              this.userInfo = null;
+              $window.sessionStorage["userInfo"] = null;
           });
 
         return deferred.promise;
