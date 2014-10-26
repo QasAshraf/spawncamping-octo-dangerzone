@@ -111,7 +111,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     };
 
     this.register = function register(data, username) {
-        $window.sessionStorage["userInfo"] = ;
+        $window.sessionStorage["userInfo"] = data;
     };
 
     this.logout = function logout() {
