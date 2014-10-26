@@ -36,7 +36,7 @@ app.run(["$rootScope", "$location", "AuthService", function ($rootScope, $locati
         }
 
     }])
-    .controller('chatController', ['$scope', 'AuthService', function ($scope, AuthService) {
+    .controller('chatController', ['$scope', 'AuthService', '$http', function ($scope, AuthService, $http) {
         $scope.messages = [{"message": "Loading..."}];
 
         $http.get('/api/messages/' + AuthService.getUserInfo(), {}).
