@@ -1,4 +1,4 @@
-app.service('UserService', function() {
+app.service('UserService', ['$hhtp', function($http) {
     this.currentUser = {
             firstname: 'anonymous',
             lastname: '',
@@ -34,7 +34,7 @@ app.service('UserService', function() {
 
 
     }
-});
+}]);
 
 app.service('RoomService', function() {
     this.rooms = {
