@@ -6,10 +6,9 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
         tags: [],
         api_key: null
     };
-    this.currentUser.api_key = AuthService.getUserInfo()
     this.get = function () {
         var self = this;
-        $http.get('/api/user/' + self.currentUser.api_key, {}).
+        $http.get('/api/user/' + AuthService.getUserInfo(), {}).
             success(function (data) {
                 self.currentUser = data.user;
             }).
