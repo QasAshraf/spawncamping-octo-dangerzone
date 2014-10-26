@@ -15,6 +15,18 @@ app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     function login(username, password) {
         var deferred = $q.defer();
 
+        $http.post('/api/user/logon', {
+            email: username,
+            password: password,
+            longitude: null,
+            latitude: null
+        }).
+          success(function (data, status, headers, config) {
+              console.log("success");
+          }).
+          error(function (data, status, headers, config) {
+              console.log("error");
+          });
 
         return deferred.promise;
     };
