@@ -66,7 +66,8 @@ app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     return {
         login: login,
         logout: logout,
-        getUserInfo: getUserInfo
+        getUserInfo: getUserInfo,
+        isLoggedIn: isLoggedIn
     };
     
 }]);
