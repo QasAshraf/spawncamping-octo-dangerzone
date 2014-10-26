@@ -96,7 +96,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     };
 
     this.getUserInfo = function getUserInfo() {
-        return userInfo;
+        return this.userInfo;
     };
 
     this.init = function init() {
