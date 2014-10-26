@@ -36,58 +36,38 @@ app.run(["$rootScope", "$location", "AuthService", function ($rootScope, $locati
         }
 
     }])
-    .controller('chatController', ['$scope', function ($scope) {
-        var messagesReverse = [
-            {
-                "chatroomid": "1",
-                "fk_deviceid": "8",
-                "fk_locationid": "13",
-                "timestamp": "87979",
-                "message": "Hello Bobby. ",
-                "iddevice": "8",
-                "fk_iduser": "8",
-                "friendly_name": "phone",
-                "api_key": "KEY1",
-                "lat": "11.1323",
-                "lon": "45.253",
-                "iduser": "8",
-                "email": "user@mail.com",
-                "password": "dsfsfhbk",
-                "firstname": null,
-                "lastname": null,
-                "radiuspref": null
-            },
-            {
-                "chatroomid": "2",
-                "fk_deviceid": "9",
-                "fk_locationid": "13",
-                "timestamp": "57475",
-                "message": "Hello Reply",
-                "iddevice": "9",
-                "fk_iduser": "9",
-                "friendly_name": "PHONE2",
-                "api_key": "KEY2",
-                "lat": "11.1323",
-                "lon": "45.253",
-                "iduser": "9",
-                "email": "bob@mail.com",
-                "password": "",
-                "firstname": "bob",
-                "lastname": "lob",
-                "radiuspref": null
-            }
-        ];
-        $scope.messages =  messagesReverse.slice().reverse();
+    .controller('chatController', ['$scope', 'AuthService', function ($scope, AuthService) {
+        $scope.messages = [{"message": "Loading..."}];
 
+        $http.get('/api/messages/' + AuthService.getUserInfo(), {}).
+            success(function (data) {
+                $scope.messages = data.slice().reverse();
+            }).
+            error(function (data, status, headers, config) {
+                console.log("error");
+            });
 
         $scope.send = function (message) {
             if (message != '') {
-                $scope.messages.push({
-                    "timestamp":  Date.now(),
-                    "message": message,
-                    "firstname": "steph"
-                });
-                $scope.message = '';
+                $http.post('/api/messages',
+                    {
+                        "api_key": AuthService.getUserInfo(),
+                        "message": message
+                    }
+
+                ).
+                    success(function (data, status, headers, config) {
+                        $scope.messages.push({
+                            "timestamp":  Date.now(),
+                            "message": message,
+                            "firstname": "steph"
+                        });
+                        $scope.message = '';
+                    }).
+                    error(function (data, status, headers, config) {
+                        console.log("error");
+                        self.isLive = false
+                    });
             }
         }
     }]);
