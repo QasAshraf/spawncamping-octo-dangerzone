@@ -44,8 +44,8 @@ app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     function isLoggedIn()
     {
         console.log(userInfo);
-        if (userInfo != null) {
-            return true;
+        if (userInfo !== null) {
+            return false;
         }
         else {
             return false;
