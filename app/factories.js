@@ -22,6 +22,8 @@ app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
             latitude: 1
         }).
           success(function (data, status, headers, config) {
+              console.log(data);
+              userInfo = data;
               $window.sessionStorage["userInfo"] = data;
           }).
           error(function (data, status, headers, config) {
