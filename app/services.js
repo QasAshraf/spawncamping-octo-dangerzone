@@ -6,20 +6,17 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
         tags: [],
         api_key: null
     };
-    this.currentUser = AuthService.getUserInfo()
-    console.log(this.currentUser);
-    console.log(AuthService.getUserInfo());
+    this.currentUser.api_key = AuthService.getUserInfo()
     this.get = function () {
         var self = this;
         $http.get('/api/user/' + self.currentUser.api_key, {}).
             success(function (data) {
-                console.log(self);
                 self.currentUser = data.user;
             }).
             error(function (data, status, headers, config) {
                 console.log("error");
             });
-        return this.currentUser;
+        return self.currentUser;
     };
 
     this.save = function (user) {
@@ -95,8 +92,9 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-              self.userInfo = data;
-              $window.sessionStorage["userInfo"] = data;
+              console.log(data);
+              self.userInfo = data.api_key;
+              $window.sessionStorage["userInfo"] = data.api_key;
           }).
           error(function (data, status, headers, config) {
               self.userInfo = null;
@@ -127,7 +125,6 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     };
 
     this.init = function init() {
-        console.log($window.sessionStorage["userInfo"])
         if ($window.sessionStorage["userInfo"]) {
             this.userInfo = $window.sessionStorage["userInfo"];
         }
