@@ -10,11 +10,9 @@ angular.module('myApp.login', ['ngRoute'])
 }])
 
 .controller('LoginCtrl', ['$scope', "$location", "$window", "AuthService", function ($scope, $location, $window, AuthService) {
-    $scope.userInfo = null;
     $scope.login = function () {
         AuthService.login($scope.userName, $scope.password)
             .then(function (result) {
-                $scope.userInfo = result;
                 $location.path("/");
             }, function (error) {
                 $window.alert("Invalid credentials");

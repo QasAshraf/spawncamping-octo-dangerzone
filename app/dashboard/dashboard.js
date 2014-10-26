@@ -22,7 +22,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
             key: 'AIzaSyBH4AsqZUkTOWa2evVyiaFmW14cVdMFUJQ',
             libraries: '',
             language: 'en',
-            sensor: 'false',
+            sensor: 'false'
         });
     }])
 
@@ -40,7 +40,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                                 latitude: grps[i].lat,
                                 longitude: grps[i].lon
                             },
-                            radius: 500,
+                            radius: 200,
                             stroke: {
                                 color: '#08B21F',
                                 weight: 2,
@@ -191,6 +191,6 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
 
         $scope.map = map;
         GoogleMapApi.then(function (maps) {
-            $scope.nearRadius = 5;
+            $scope.nearRadius = 0.5;
         });
     }]);
