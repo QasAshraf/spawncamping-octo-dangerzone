@@ -10,8 +10,8 @@ app.service('UserService', ['$http', function($http) {
     this.get = function() {
         var self = this;
         if (!this.isLive) {
-            console.log(this.currentUser.token);
-            $http.get('/api/user/'+self.currentUser.token, {}).
+            console.log(this.currentUser.token.api_key);
+            $http.get('/api/user/'+self.currentUser.token.api_key, {}).
                 success(function (data) {
                     self.currentUser = data;
                     self.isLive = true;
