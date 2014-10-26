@@ -13,7 +13,7 @@ app.service('UserService', ['$http', function($http) {
             console.log(this.currentUser.token.api_key);
             $http.get('/api/user/'+self.currentUser.token.api_key, {}).
                 success(function (data) {
-                    self.currentUser = data;
+                    self.currentUser = data.user;
                     self.isLive = true;
                 }).
                 error(function (data, status, headers, config) {
