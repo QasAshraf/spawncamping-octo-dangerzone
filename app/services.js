@@ -85,7 +85,7 @@ app.service('ConfigService', function () {
     }
 });
 
-app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($http, $q, $window, UserService) {
+app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $window) {
     this.userInfo = null;
 
     this.login = function login(username, password) {
@@ -100,10 +100,8 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
         }).
           success(function (data, status, headers, config) {
               console.log(data);
-              UserService.currentUser.email = username;
-              UserService.currentUser.token = data;
               self.userInfo = data;
-              $window.sessionStorage["userInfo"] = UserService.currentUser;
+              $window.sessionStorage["userInfo"] = data;
           }).
           error(function (data, status, headers, config) {
               console.log("error");
@@ -113,9 +111,7 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
     };
 
     this.register = function register(data, username) {
-        UserService.currentUser.email = username;
-        UserService.currentUser.token = data;
-        $window.sessionStorage["userInfo"] = UserService.currentUser;
+        $window.sessionStorage["userInfo"] = ;
     };
 
     this.logout = function logout() {
