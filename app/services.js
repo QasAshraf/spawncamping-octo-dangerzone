@@ -6,7 +6,7 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
         tags: [],
         token: null
     };
-    console.log(AuthService);
+    console.log(AuthService.getUserInfo());
     if ($window.sessionStorage["userInfo"] != null) {
         this.currentUser = $window.sessionStorage["userInfo"];
     }
