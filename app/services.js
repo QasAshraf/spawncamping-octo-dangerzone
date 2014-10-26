@@ -1,33 +1,31 @@
-app.service('UserService', ['$http', '$window', function($http, $window) {
+app.service('UserService', ['$http', '$window', function ($http, $window) {
     this.currentUser = {
-            firstname: '',
-            lastname: '',
-            email: '',
-            tags: [],
-            token: null
+        firstname: '',
+        lastname: '',
+        email: '',
+        tags: [],
+        token: null
     };
+    //console.log($window.sessionStorage["userInfo"]);
     if ($window.sessionStorage["userInfo"] != null) {
         this.currentUser = $window.sessionStorage["userInfo"];
     }
-    this.isLive = false;
-    this.get = function() {
+    this.get = function () {
         var self = this;
-        if (!this.isLive) {
-            console.log(this.currentUser.token.api_key);
-            $http.get('/api/user/'+self.currentUser.token.api_key, {}).
-                success(function (data) {
-                    self.currentUser = data.user;
-                    self.isLive = true;
-                }).
-                error(function (data, status, headers, config) {
-                    console.log("error");
-                    self.isLive = false;
-                });
-        }
+        console.log(this.currentUser);
+        //$http.get('/api/user/' + self.currentUser.token.api_key, {}).
+        //    success(function (data) {
+        //        self.currentUser = data.user;
+        //        self.isLive = true;
+        //    }).
+        //    error(function (data, status, headers, config) {
+        //        console.log("error");
+        //        self.isLive = false;
+        //    });
         return this.currentUser;
     };
 
-    this.save = function(user) {
+    this.save = function (user) {
         var self = this;
         $http.put('/api/user',
             user
@@ -44,9 +42,9 @@ app.service('UserService', ['$http', '$window', function($http, $window) {
     }
 }]);
 
-app.service('RoomService', function() {
+app.service('RoomService', function () {
     this.rooms = {
-        0 : {
+        0: {
             users: [
                 "tom",
                 "dick",
@@ -57,7 +55,7 @@ app.service('RoomService', function() {
                 "Hows it going?"
             ]
         },
-        1 : {
+        1: {
             users: [
                 "bill",
                 "bob",
@@ -70,8 +68,8 @@ app.service('RoomService', function() {
         }
     };
 
-    this.get = function(id) {
-      return this.rooms[id];
+    this.get = function (id) {
+        return this.rooms[id];
     };
 });
 
@@ -87,7 +85,7 @@ app.service('ConfigService', function () {
     }
 });
 
-app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($http, $q, $window, UserService) {
+app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $window) {
     this.userInfo = null;
 
     this.login = function login(username, password) {
@@ -101,10 +99,9 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-              UserService.currentUser.email = username;
-              UserService.currentUser.token = data;
+              console.log(data);
               self.userInfo = data;
-              $window.sessionStorage["userInfo"] = UserService.currentUser;
+              $window.sessionStorage["userInfo"] = data;
           }).
           error(function (data, status, headers, config) {
               console.log("error");
@@ -114,9 +111,7 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
     };
 
     this.register = function register(data, username) {
-        UserService.currentUser.email = username;
-        UserService.currentUser.token = data;
-        $window.sessionStorage["userInfo"] = UserService.currentUser;
+        $window.sessionStorage["userInfo"] = data;
     };
 
     this.logout = function logout() {

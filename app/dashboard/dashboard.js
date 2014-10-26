@@ -40,7 +40,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                                 latitude: grps[i].lat,
                                 longitude: grps[i].lon
                             },
-                            radius: 500,
+                            radius: 200,
                             stroke: {
                                 color: '#08B21F',
                                 weight: 2,

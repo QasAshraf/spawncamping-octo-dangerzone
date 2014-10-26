@@ -19,7 +19,7 @@ angular.module('myApp.account', ['ngRoute', 'ngTagsInput'])
         });
     }])
 
-    .controller('AccountCtrl', function($scope, UserService, $http, ConfigService)
+    .controller('AccountCtrl', ['$scope', 'UserService', '$http', 'ConfigService', function ($scope, UserService, $http, ConfigService)
     {
         $scope.user = UserService.get();
         $scope.update = function(user) {
@@ -29,4 +29,4 @@ angular.module('myApp.account', ['ngRoute', 'ngTagsInput'])
         $scope.loadTags = function (query) {
             return $http.get(ConfigService.get('api-url')+'tag/'+query);
         };
-    });
+    }]);
