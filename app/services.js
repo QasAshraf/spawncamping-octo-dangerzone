@@ -1,4 +1,4 @@
-app.service('UserService', ['$http', '$window', function ($http, $window) {
+app.service('UserService', ['$http', '$window','AuthService', function ($http, $window, AuthService) {
     this.currentUser = {
         firstname: '',
         lastname: '',
@@ -6,7 +6,7 @@ app.service('UserService', ['$http', '$window', function ($http, $window) {
         tags: [],
         token: null
     };
-    //console.log($window.sessionStorage["userInfo"]);
+    console.log(AuthService);
     if ($window.sessionStorage["userInfo"] != null) {
         this.currentUser = $window.sessionStorage["userInfo"];
     }
@@ -91,7 +91,8 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     this.login = function login(username, password) {
         var self = this;
         var deferred = $q.defer();
-
+        console.log(username);
+        console.log(password);
         $http.post('/api/user/logon', {
             email: username,
             password: password,
@@ -123,12 +124,11 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
         return deferred.promise;
     };
     this.isLoggedIn = function isLoggedIn() {
-        console.log(this.userInfo);
         return this.userInfo != null;
     };
 
     this.getUserInfo = function getUserInfo() {
-        return this.userInfo ;
+        return this.userInfo;
     };
 
     this.init = function init() {
