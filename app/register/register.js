@@ -9,7 +9,7 @@ angular.module('myApp.register', ['ngRoute'])
     });
 }])
 
-.controller('RegisterCtrl', ['$scope', "$location", "$window", function ($scope, $location, $window) {
+.controller('RegisterCtrl', ['$scope', "$http", function ($scope, $http) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             $scope.$apply(function () {
@@ -20,8 +20,23 @@ angular.module('myApp.register', ['ngRoute'])
             });
         });
     }
-    $scope.cancel = function () {
-        $scope.userName = "";
-        $scope.password = "";
+
+    $scope.submit = function myfunction() {
+        $http.post('/api/user/register',{
+            email: $scope.userName,
+            password: $scope.password,
+            longitude: $scope.userLocation.longitude,
+            latitude: $scope.userLocation.latitude,
+            firstname: $scope.FName,
+            lastname: $scope.LName
+        }).
+          success(function (data, status, headers, config) {
+              console.log("success");
+          }).
+          error(function (data, status, headers, config) {
+              console.log("error");
+          });
     };
+
+    
 }]);
