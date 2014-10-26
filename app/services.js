@@ -16,7 +16,7 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
             error(function (data, status, headers, config) {
                 console.log("error");
             });
-        return this.currentUser;
+        return self.currentUser;
     };
 
     this.save = function (user) {
