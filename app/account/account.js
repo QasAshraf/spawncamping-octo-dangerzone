@@ -22,6 +22,7 @@ angular.module('myApp.account', ['ngRoute', 'ngTagsInput'])
     .controller('AccountCtrl', ['$scope', 'UserService', '$http', 'ConfigService', function ($scope, UserService, $http, ConfigService)
     {
         $scope.user = UserService.get();
+        console.log(UserService.get());
         $scope.update = function(user) {
             UserService.save(angular.copy(user));
         };

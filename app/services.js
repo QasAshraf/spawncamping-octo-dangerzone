@@ -11,7 +11,6 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
         var self = this;
         $http.get('/api/user/' + self.currentUser.api_key, {}).
             success(function (data) {
-                console.log(self);
                 self.currentUser = data.user;
             }).
             error(function (data, status, headers, config) {
