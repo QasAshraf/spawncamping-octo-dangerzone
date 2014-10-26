@@ -29,8 +29,10 @@
     <div class="main" ng-controller="chatController">
         <h4>Chat</h4>
         <ul>
-            <li ng-repeat="item in messages.slice().reverse()">
+            <li ng-repeat="item in messages">
+                <p>{{item.timestamp | date:"MM/dd/yyyy 'at' h:mma"}}</p>
                 <p>{{item.message}}</p>
+                <p>{{item.firstname}}</p>
             </li>
         </ul>
         <textarea ng-model="message" class="form-control"></textarea>
