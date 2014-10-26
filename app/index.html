@@ -26,7 +26,16 @@
 
         </div>
     </div>
-    <p>The chat room</p>
+    <div class="main" ng-controller="chatController">
+        <h4>Chat</h4>
+        <ul>
+            <li ng-repeat="item in messages.slice().reverse()">
+                <p>{{item.message}}</p>
+            </li>
+        </ul>
+        <textarea ng-model="message" class="form-control"></textarea>
+        <button class="btn btn-success" ng-click="send(message)">Send</button>
+    </div>
 </div>
 <div snap-content>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
