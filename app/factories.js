@@ -18,8 +18,8 @@ app.factory("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
         $http.post('/api/user/logon', {
             email: username,
             password: password,
-            longitude: null,
-            latitude: null
+            longitude: 1,
+            latitude: 1
         }).
           success(function (data, status, headers, config) {
               console.log("success");
