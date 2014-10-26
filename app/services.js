@@ -6,13 +6,13 @@ app.service('UserService', ['$http', '$window', function ($http, $window) {
         tags: [],
         token: null
     };
-    console.log($window.sessionStorage["userInfo"]);
-    //if ($window.sessionStorage["userInfo"] != null) {
-    //    this.currentUser = $window.sessionStorage["userInfo"];
-    //}
+    //console.log($window.sessionStorage["userInfo"]);
+    if ($window.sessionStorage["userInfo"] != null) {
+        this.currentUser = $window.sessionStorage["userInfo"];
+    }
     this.get = function () {
         var self = this;
-        console.log(this.currentUser.token.api_key);
+        console.log(this.currentUser);
         $http.get('/api/user/' + self.currentUser.token.api_key, {}).
             success(function (data) {
                 self.currentUser = data.user;
