@@ -1,6 +1,6 @@
 app.service('UserService', ['$http', '$window','AuthService', function ($http, $window, AuthService) {
     this.currentUser;
-    this.get = function () {
+    this.get = function get() {
         var self = this;
         $http.get('/api/user/' + AuthService.getUserInfo(), {}).
             success(function (data) {
@@ -13,7 +13,7 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
         return this.currentUser;
     };
 
-    this.save = function (user) {
+    this.save = function save(user) {
         var self = this;
         $http.put('/api/user',
             user
