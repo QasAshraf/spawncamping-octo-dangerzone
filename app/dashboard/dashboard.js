@@ -33,7 +33,6 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
         function getGroups() {
             groupFacotry.getGroups()
                 .success(function (grps) {
-                    console.log(grps);
                     for (var i = 0; i < grps.length; i++) {
                         $scope.circles.push({
                             id: grps[i].id,
@@ -192,6 +191,6 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
 
         $scope.map = map;
         GoogleMapApi.then(function (maps) {
-            $scope.nearRadius = 10;
+            $scope.nearRadius = 5;
         });
     }]);
