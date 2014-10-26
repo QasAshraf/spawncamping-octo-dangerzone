@@ -13,15 +13,15 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
     this.get = function () {
         var self = this;
         console.log(this.currentUser);
-        //$http.get('/api/user/' + self.currentUser.token.api_key, {}).
-        //    success(function (data) {
-        //        self.currentUser = data.user;
-        //        self.isLive = true;
-        //    }).
-        //    error(function (data, status, headers, config) {
-        //        console.log("error");
-        //        self.isLive = false;
-        //    });
+        $http.get('/api/user/' + self.currentUser.token.api_key, {}).
+            success(function (data) {
+                self.currentUser = data.user;
+                self.isLive = true;
+            }).
+            error(function (data, status, headers, config) {
+                console.log("error");
+                self.isLive = false;
+            });
         return this.currentUser;
     };
 
