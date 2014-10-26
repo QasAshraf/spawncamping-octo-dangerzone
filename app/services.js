@@ -99,6 +99,7 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
             latitude: 1
         }).
           success(function (data, status, headers, config) {
+              console.log(data);
               UserService.currentUser.email = username;
               UserService.currentUser.token = data;
               self.userInfo = data;
