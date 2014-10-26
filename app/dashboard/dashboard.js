@@ -53,7 +53,11 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                                 opacity: 0.5
                             },
                             count: parseInt(grps[i].count),
-                            tags: grps[i].tags
+                            options: {
+                                labelContent: 'asdasdas',
+                                labelAnchor: '100 0',
+                                labelClass: 'marker-labels'
+                            }
                         });
                     }
                 })
@@ -188,6 +192,6 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
 
         $scope.map = map;
         GoogleMapApi.then(function (maps) {
-            $scope.nearRadius = 50;
+            $scope.nearRadius = 10;
         });
     }]);
