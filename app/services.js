@@ -6,6 +6,9 @@ app.service('UserService', ['$http', function($http) {
             tags: [],
             token: null
     };
+    if ($window.sessionStorage["userInfo"] != null) {
+        this.currentUser = $window.sessionStorage["userInfo"];
+    }
     this.isLive = false;
     this.get = function() {
         var self = this;
@@ -101,7 +104,7 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
               UserService.currentUser.email = username;
               UserService.currentUser.token = data;
               self.userInfo = data;
-              $window.sessionStorage["userInfo"] = data;
+              $window.sessionStorage["userInfo"] = UserService.currentUser;
           }).
           error(function (data, status, headers, config) {
               console.log("error");
@@ -113,8 +116,7 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
     this.register = function register(data, username) {
         UserService.currentUser.email = username;
         UserService.currentUser.token = data;
-        self.userInfo = data;
-        $window.sessionStorage["userInfo"] = data;
+        $window.sessionStorage["userInfo"] = UserService.currentUser;
     };
 
     this.logout = function logout() {
@@ -128,11 +130,12 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
 
 
     this.isLoggedIn = function isLoggedIn() {
-        return this.userInfo != null;
+        return this.getUserInfo() != null;
     };
 
     this.getUserInfo = function getUserInfo() {
-        return this.userInfo;
+        this.userInfo = $window.sessionStorage["userInfo"];
+        return $window.sessionStorage["userInfo"];
     };
 
     this.init = function init() {
