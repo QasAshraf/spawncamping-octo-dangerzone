@@ -23,4 +23,7 @@ app.run(["$rootScope", "$location", function ($rootScope, $location) {
             $location.path("/login");
         }
     });
+}])
+.controller('mainController', ['AuthService', function (AuthService) {
+    $scope.loggedin = AuthService.isLoggedIn();
 }]);

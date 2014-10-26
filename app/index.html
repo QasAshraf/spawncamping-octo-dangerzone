@@ -32,8 +32,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/login">Login</a></li>
-                <li><a href="#/register">Register</a></li>
+                <li ng-hide="loggedin"><a href="#/login">Login</a></li>
+                <li ng-hide="loggedin"><a href="#/register">Register</a></li>
                 <li><a href="#/dashboard">Dashboard</a></li>
                 <li><a href="#/account">Account</a></li>
             </ul>
@@ -48,8 +48,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="#/login">Login</a></li>
-                <li><a href="#/register">Register</a></li>
+                <li ng-hide="loggedin"><a href="#/login">Login</a></li>
+                <li ng-hide="loggedin"><a href="#/register">Register</a></li>
                 <li><a href="#/dashboard">Dashboard</a></li>
                 <li><a href="#/account">Account</a></li>
             </ul>
