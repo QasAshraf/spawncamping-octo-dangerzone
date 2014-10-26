@@ -130,6 +130,7 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     };
 
     this.init = function init() {
+        console.log($window.sessionStorage["userInfo"])
         if ($window.sessionStorage["userInfo"]) {
             this.userInfo = $window.sessionStorage["userInfo"];
         }
