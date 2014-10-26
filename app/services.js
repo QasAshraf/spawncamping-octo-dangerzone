@@ -7,6 +7,8 @@ app.service('UserService', ['$http', '$window','AuthService', function ($http, $
         api_key: null
     };
     this.currentUser = AuthService.getUserInfo()
+    console.log(this.currentUser);
+    console.log(AuthService.getUserInfo());
     this.get = function () {
         var self = this;
         $http.get('/api/user/' + self.currentUser.api_key, {}).
