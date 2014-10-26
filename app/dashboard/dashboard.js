@@ -34,12 +34,12 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
             groupFacotry.getGroups()
                 .success(function (grps) {
                     console.log(grps);
-                    for (var i = 0; i < grps.locations.length; i++) {
+                    for (var i = 0; i < grps.length; i++) {
                         $scope.circles.push({
-                            id: grps.locations[i].id,
+                            id: grps[i].id,
                             centre: {
-                                latitude: grps.locations[i].lat,
-                                longitude: grps.locations[i].lon
+                                latitude: grps[i].lat,
+                                longitude: grps[i].lon
                             },
                             radius: 500,
                             stroke: {
@@ -52,7 +52,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                                 weight: 2,
                                 opacity: 0.5
                             },
-                            count: parseInt(grps.locations[i].count)
+                            count: parseInt(grps[i].count)
                         });
                     }
                 })
