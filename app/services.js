@@ -1,11 +1,5 @@
 app.service('UserService', ['$http', '$window','AuthService', function ($http, $window, AuthService) {
-    this.currentUser = {
-        firstname: '',
-        lastname: '',
-        email: '',
-        tags: [],
-        api_key: null
-    };
+    this.currentUser;
     this.get = function () {
         var self = this;
         $http.get('/api/user/' + AuthService.getUserInfo(), {}).
