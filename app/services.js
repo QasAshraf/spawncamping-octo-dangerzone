@@ -122,15 +122,13 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
 
         return deferred.promise;
     };
-
-
     this.isLoggedIn = function isLoggedIn() {
-        return this.getUserInfo() != null;
+        console.log(this.userInfo);
+        return this.userInfo != null;
     };
 
     this.getUserInfo = function getUserInfo() {
-        this.userInfo = $window.sessionStorage["userInfo"];
-        return $window.sessionStorage["userInfo"];
+        return this.userInfo ;
     };
 
     this.init = function init() {
