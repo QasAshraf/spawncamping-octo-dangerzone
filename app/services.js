@@ -1,4 +1,4 @@
-app.service('UserService', ['$http', function($http) {
+app.service('UserService', ['$http', 'AuthService', function($http, AuthService) {
     this.currentUser = {
             firstname: '',
             lastname: '',
@@ -9,13 +9,15 @@ app.service('UserService', ['$http', function($http) {
     this.get = function() {
         var self = this;
         if (!this.isLive) {
-            console.log(this.currentUser.email);
-            $http.get('/api/user/'+this.currentUser.email, {}).
+            console.log(AuthService.userInfo);
+            $http.get('/api/user/'+AuthService.userInfo, {}).
                 success(function (data) {
                     self.currentUser = data;
+                    self.isLive = true;
                 }).
                 error(function (data, status, headers, config) {
                     console.log("error");
+                    self.isLive = false;
                 });
         }
         return this.currentUser;
@@ -31,6 +33,7 @@ app.service('UserService', ['$http', function($http) {
         }).
         error(function (data, status, headers, config) {
             console.log("error");
+            self.isLive = false
         });
 
 
@@ -94,8 +97,7 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
             latitude: 1
         }).
           success(function (data, status, headers, config) {
-              user.email = username;
-              UserService.save(user);
+                UserService.currentUser.email = username;
               self.userInfo = data;
               $window.sessionStorage["userInfo"] = data;
           }).
@@ -107,13 +109,7 @@ app.service("AuthService", ["$http", "$q", "$window", "UserService", function ($
     };
 
     this.register = function register(data, username) {
-        var user = {
-            email: username,
-            firstname: '',
-            lastname: '',
-            Interests: []
-        };
-        UserService.save(user);
+        UserService.currentUser.email = username;
         self.userInfo = data;
         $window.sessionStorage["userInfo"] = data;
     };
