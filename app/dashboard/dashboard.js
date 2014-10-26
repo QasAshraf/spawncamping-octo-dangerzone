@@ -19,11 +19,10 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
     .controller('DashboardCtrl', ['$scope', 'GoogleMapApi'.ns(), 'groupFactory', function ($scope, GoogleMapApi, groupFacotry) {
         getGroups();
         $scope.CloseUsers = 0;
-        $scope.nearRadius = 50;
+        $scope.circles = [];
         function getGroups() {
             groupFacotry.getGroups()
                 .success(function (grps) {
-                    $scope.circles = [];
                     for (var i = 0; i < grps.locations.length; i++) {
                         $scope.circles.push({
                             id: grps.locations[i].id,
@@ -45,11 +44,14 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                             count: parseInt(grps.locations[i].count)
                         });
                     }
+                    $scope.nearRadius = 50;
                 })
                 .error(function (err) {
                     console.log(err);
                 });
         }
+
+        
 
         $scope.$watch('circles', function () {
             if (typeof $scope.circles != 'undefined') {
@@ -59,10 +61,13 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                     }
                 }
             }
-        })
+        });
+
+        $scope.$watch('marker.coords', function () {
+            $scope.repaintNearRadius();
+        });
 
         $scope.$watch('nearRadius', function () {
-            console.log($scope.nearRadius);
             $scope.CloseUsers = 0;
             if (typeof $scope.circles != 'undefined') {
                 for (var i = 0; i < $scope.circles.length; i++) {
@@ -71,7 +76,43 @@ angular.module('myApp.dashboard', ['ngRoute', 'google-maps'.ns()])
                     }
                 }
             }
-        })
+            $scope.repaintNearRadius();
+        });
+
+        $scope.repaintNearRadius = function repaintNearRadius() {
+            var found = false;
+            for (var i = 0; i < $scope.circles.length ; i++) {
+                if ($scope.circles[i].id == -1) {
+                    found = true;
+                    $scope.circles[i].centre = {
+                        latitude: marker.coords.latitude,
+                        longitude: marker.coords.longitude
+                    }
+                    $scope.circles[i].radius = $scope.nearRadius * 1000;
+                }
+            }
+            if (!found) {
+                $scope.circles.push({
+                    id: -1,
+                    centre: {
+                        latitude: marker.coords.latitude,
+                        longitude: marker.coords.longitude
+                    },
+                    radius: $scope.nearRadius * 1000,
+                    stroke: {
+                        color: '#08B21F',
+                        weight: 0,
+                        opacity: 0
+                    },
+                    fill: {
+                        color: '#0066CC',
+                        weight: 1,
+                        opacity: 0.5
+                    },
+                    count: 0
+                });
+            }
+        };
 
         $scope.toRadians = function (val) {
             return val * Math.PI / 180;
