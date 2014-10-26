@@ -30,6 +30,7 @@ app.run(["$rootScope", "$location", function ($rootScope, $location) {
     $scope.logout = function () {
         AuthService.logout();
         $location.path("/");
+        $scope.loggedin = AuthService.isLoggedIn();
     }
         
 }]);
