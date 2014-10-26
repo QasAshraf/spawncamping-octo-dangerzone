@@ -81,6 +81,11 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
         return deferred.promise;
     };
 
+    this.register = function register(data) {
+        self.userInfo = data;
+        $window.sessionStorage["userInfo"] = data;
+    };
+
     this.logout = function logout() {
         var deferred = $q.defer();
 

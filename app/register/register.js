@@ -9,7 +9,7 @@ angular.module('myApp.register', ['ngRoute'])
     });
 }])
 
-.controller('RegisterCtrl', ['$scope', "$http", function ($scope, $http) {
+.controller('RegisterCtrl', ['$scope', "$http", 'AuthService','$location', function ($scope, $http, AuthService, $location) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             $scope.$apply(function () {
@@ -31,7 +31,8 @@ angular.module('myApp.register', ['ngRoute'])
             lastname: $scope.LName
         }).
           success(function (data, status, headers, config) {
-              console.log("success");
+              AuthService.register(data);
+              $location.path('/');
           }).
           error(function (data, status, headers, config) {
               console.log("error");
