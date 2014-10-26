@@ -6,7 +6,8 @@ var app = angular.module('myApp', [
     'myApp.dashboard',
     'myApp.account',
     'myApp.room',
-    'myApp.login'
+    'myApp.login',
+    'myApp.register'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/dashboard'});
