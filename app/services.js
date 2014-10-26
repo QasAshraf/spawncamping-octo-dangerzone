@@ -56,3 +56,58 @@ app.service('ConfigService', function () {
         return this.config[key];
     }
 });
+
+app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $window) {
+    var userInfo = null;
+
+    this.login = function login(username, password) {
+        var deferred = $q.defer();
+
+        $http.post('/api/user/logon', {
+            email: username,
+            password: password,
+            longitude: 1,
+            latitude: 1
+        }).
+          success(function (data, status, headers, config) {
+              userInfo = data;
+              $window.sessionStorage["userInfo"] = data;
+          }).
+          error(function (data, status, headers, config) {
+              console.log("error");
+          });
+
+        return deferred.promise;
+    };
+
+    this.logout = function logout() {
+        var deferred = $q.defer();
+
+        userInfo = null;
+        $window.sessionStorage["userInfo"] = null;
+
+        return deferred.promise;
+    }
+
+
+    this.isLoggedIn = function isLoggedIn() {
+        console.log(userInfo != null);
+        if (userInfo !== null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    this. getUserInfo = function getUserInfo() {
+        return userInfo;
+    }
+
+    this.init = function init() {
+        if ($window.sessionStorage["userInfo"]) {
+            userInfo = $window.sessionStorage["userInfo"];
+        }
+    }
+
+}]);
