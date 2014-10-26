@@ -36,7 +36,7 @@ app.run(["$rootScope", "$location", "AuthService", function ($rootScope, $locati
         }
 
     }])
-    .controller('chatController', ['$scope', 'AuthService', '$http', function ($scope, AuthService, $http) {
+    .controller('chatController', ['$scope', 'AuthService', '$http', '$timeout', function ($scope, AuthService, $http, $timeout) {
         $scope.messages = [{"message": "Loading..."}];
 
         $http.get('/api/messages/' + AuthService.getUserInfo(), {}).
@@ -50,6 +50,24 @@ app.run(["$rootScope", "$location", "AuthService", function ($rootScope, $locati
             error(function (data, status, headers, config) {
                 console.log("error");
             });
+
+        var poll = function() {
+            $timeout(function() {
+                $http.get('/api/messages/' + AuthService.getUserInfo(), {}).
+                    success(function (data) {
+                        if (data) {
+                            $scope.messages = data.slice().reverse();
+                        } else {
+                            $scope.messages = [];
+                        }
+                    }).
+                    error(function (data, status, headers, config) {
+                        console.log("error");
+                    });
+                poll();
+            }, 10000);
+        };
+        poll();
 
         $scope.send = function (message) {
             if (message != '') {
