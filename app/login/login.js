@@ -11,7 +11,7 @@ angular.module('myApp.login', ['ngRoute'])
 
 .controller('LoginCtrl', ['$scope', "$location", "$window", "AuthService", function ($scope, $location, $window, AuthService) {
     $scope.login = function () {
-        AuthService.login($scope.userName, $scope.password)
+        AuthService.login($scope.userName, $scope.Password)
             .then(function (result) {
                 $location.path("/");
             }, function (error) {

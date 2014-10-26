@@ -91,8 +91,6 @@ app.service("AuthService", ["$http", "$q", "$window", function ($http, $q, $wind
     this.login = function login(username, password) {
         var self = this;
         var deferred = $q.defer();
-        console.log(username);
-        console.log(password);
         $http.post('/api/user/logon', {
             email: username,
             password: password,
